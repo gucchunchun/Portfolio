@@ -73,6 +73,14 @@ export default defineConfig({
 
   image: {
     domains: ['cdn.pixabay.com'],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'skillicons.dev',
+        // If there's a specific pathname, add it:
+        // pathname: '/icons'
+      },
+    ],
   },
 
   markdown: {

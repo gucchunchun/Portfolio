@@ -1,14 +1,10 @@
 ---
-import { Icon } from 'astro-icon/components';
 import Logo from '~/components/Logo.astro';
 import ToggleTheme from '~/components/common/ToggleTheme.astro';
 import ToggleMenu from '~/components/common/ToggleMenu.astro';
-import Button from '~/components/ui/Button.astro';
 
 import { getHomePermalink } from '~/utils/permalinks';
-import { trimSlash, getAsset } from '~/utils/permalinks';
 import type { CallToAction } from '~/types';
-import { TrustedAdvisor } from 'aws-sdk';
 
 interface Link {
   text?: string;
@@ -41,20 +37,6 @@ const links: Array<MenuLink> = [
   { text: 'Blog', href: '#blog' },
   { text: 'Github', href: 'https://github.com/gucchunchun' },
 ]
-
-const {
-  id = 'header',
-  // links = [],
-  actions = [],
-  isSticky = false,
-  isDark = false,
-  isFullWidth = true,
-  showToggleTheme = false,
-  showRssFeed = false,
-  position = 'center',
-} = Astro.props;
-
-const currentPath = `/${trimSlash(new URL(Astro.url).pathname)}`;
 ---
 
 <header

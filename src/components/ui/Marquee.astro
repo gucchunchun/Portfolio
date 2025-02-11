@@ -1,0 +1,38 @@
+---
+import WidgetWrapper from '~/components/ui/WidgetWrapper.astro';
+import SubContentHeadline from '~/components/ui/SubContentHeadline.astro';
+import type { Marquee as Props } from '~/types';
+
+// import Avatarimg from 'src/assets/images/avatar.jpg';
+// import img from '~/components/common/img.astro';
+import type { ImageType } from '~/components/common/Image.astro';
+
+export interface ScrollItem {
+  image: ImageType;
+  id?: number | string;
+}
+
+const {
+  items = [] as ScrollItem[],
+  maxWidth = undefined,
+} = Astro.props;
+---
+
+<div class="flex justify-center">
+  <div class="relative overflow-hidden w-full py-10 self-center" style={{maxWidth: maxWidth}}>
+    <div class="inline-flex whitespace-nowrap animate-marquee">
+      {items.map((item) => (
+        <>
+          <img {...item.image} class="flex-none hover:scale-125" />
+          <div class="w-20" />
+        </>
+      ))}
+      {items.map((item) => (
+        <>
+          <img {...item.image} class="flex-none hover:scale-125" />
+          <div class="w-20" />
+        </>
+      ))}
+    </div>
+  </div>
+</div>

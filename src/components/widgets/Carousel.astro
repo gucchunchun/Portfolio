@@ -1,0 +1,97 @@
+---
+import WidgetWrapper from '~/components/ui/WidgetWrapper.astro';
+import Headline from '~/components/ui/Headline.astro';
+import type { Features as Props } from '~/types';
+import AvatarImage from 'src/assets/images/avatar.jpg';
+import Image from '~/components/common/Image.astro';
+
+const {
+  title = await Astro.slots.render('title'),
+  subtitle = await Astro.slots.render('subtitle'),
+  tagline = await Astro.slots.render('tagline'),
+  items = [],
+  
+  id,
+  isDark = false,
+  classes = {},
+  bg = await Astro.slots.render('bg'),
+} = Astro.props;
+---
+
+<WidgetWrapper id={id} isDark={isDark} containerClass={`max-w-5xl ${classes?.container ?? ''}`} bg={bg}>
+  <Headline title={title} subtitle={subtitle} tagline={tagline} classes={classes?.headline as Record<string, string>} />
+  <div class="swiper">
+      <!-- Additional required wrapper -->
+      <div class="swiper-wrapper">
+        <!-- Slides -->
+        <div class="swiper-slide"><Image src={AvatarImage} alt="" /></div>
+        <div class="swiper-slide"><Image src={AvatarImage} alt="" /></div>
+        <div class="swiper-slide"><Image src={AvatarImage} alt="" /></div>
+        <div class="swiper-slide"><Image src={AvatarImage} alt="" /></div>
+        <div class="swiper-slide"><Image src={AvatarImage} alt="" /></div>
+        <div class="swiper-slide"><Image src={AvatarImage} alt="" /></div>
+        <div class="swiper-slide"><Image src={AvatarImage} alt="" /></div>
+        <div class="swiper-slide"><Image src={AvatarImage} alt="" /></div>
+        <div class="swiper-slide"><Image src={AvatarImage} alt="" /></div>
+        <div class="swiper-slide"><Image src={AvatarImage} alt="" /></div>
+      </div>
+      <!-- If we need pagination -->
+      <div class="swiper-pagination"></div>
+    
+      <!-- If we need navigation buttons -->
+      <div class="swiper-button swiper-button-prev"></div>
+      <div class="swiper-button swiper-button-next"></div>
+    
+      <!-- If we need scrollbar -->
+      <div class="swiper-scrollbar"></div>
+  </div>
+</WidgetWrapper>
+
+<style>
+  .swiper-wrapper {
+    max-width: 800px;
+    max-height: 500px;
+  }
+
+  .swiper-slide img {
+    height: auto;
+    max-width: 100%;
+    object-fit: cover;
+  }
+
+  .swiper-button::after {
+    font-size: 32px;
+    color: rgb(215, 119, 22);
+  }
+</style>
+
+<script>
+  import Swiper from 'swiper'
+  import { Navigation, Pagination } from 'swiper/modules'
+  import 'swiper/css/bundle'
+
+  export const swiperConfig = {
+    modules: [Navigation, Pagination],
+    // Optional parameters
+    loop: true,
+
+    // If we need pagination
+    pagination: {
+      el: '.swiper-pagination',
+      clickable: true,
+    },
+
+    // Navigation arrows
+    navigation: {
+      nextEl: '.swiper-button-next',
+      prevEl: '.swiper-button-prev',
+    },
+
+    // And if we need scrollbar
+    scrollbar: {
+      el: '.swiper-scrollbar',
+    },
+  }
+
+  const swiper = new Swiper('.swiper', swiperConfig)
+</script>

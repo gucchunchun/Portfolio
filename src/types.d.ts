@@ -1,5 +1,6 @@
 import type { AstroComponentFactory } from 'astro/runtime/server/index.js';
 import type { HTMLAttributes, ImageMetadata } from 'astro/types';
+import type { ImageProps } from '~/utils/images-optimization';
 
 export interface Post {
   /** A unique ID number that identifies a post. */
@@ -88,10 +89,7 @@ export interface MetaDataTwitter {
   cardType?: string;
 }
 
-export interface Image {
-  src: string;
-  alt?: string;
-}
+export interface Image extends ImageProps {}
 
 export interface Video {
   src: string;
@@ -216,7 +214,7 @@ export interface Form {
 export interface Hero extends Omit<Headline, 'classes'>, Omit<Widget, 'isDark' | 'classes'> {
   content?: string;
   actions?: string | CallToAction[];
-  image?: string | unknown;
+  image?: string | unknown | Image;
 }
 
 export interface Team extends Omit<Headline, 'classes'>, Widget {
@@ -252,6 +250,7 @@ export interface Features extends Omit<Headline, 'classes'>, Widget {
   isReversed?: boolean;
   isBeforeContent?: boolean;
   isAfterContent?: boolean;
+  maxWidth?: string,
 }
 
 export interface Faqs extends Omit<Headline, 'classes'>, Widget {
@@ -273,14 +272,30 @@ export interface Steps extends Omit<Headline, 'classes'>, Widget {
   isReversed?: boolean;
 }
 
-export interface Content extends Omit<Headline, 'classes'>, Widget {
+export interface Contact extends Omit<Headline, 'classes'>, Form, Widget {}
+
+export interface Marquee {
+  items?: Array<ScrollItem>;
+  maxWidth?: string;
+}
+
+// SUB CONTENT
+export interface SubContent extends Omit<Headline, 'classes'>, Widget {
+  isReversed?: boolean;
+  image?: string | Image;
+}
+export interface ScrollItem {
+  image: ImageType;
+  id?: number | string;
+}
+export interface MarqueeSubContent extends SubContent, Marquee {}
+
+// CONTENT
+export interface Content extends SubContent {
   content?: string;
-  image?: string | unknown;
   items?: Array<Item>;
   columns?: number;
-  isReversed?: boolean;
   isAfterContent?: boolean;
   callToAction?: CallToAction;
 }
 
-export interface Contact extends Omit<Headline, 'classes'>, Form, Widget {}
