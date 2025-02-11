@@ -108,6 +108,7 @@ export interface Headline {
   subtitle?: string;
   tagline?: string;
   classes?: Record<string, string>;
+  isSubContent?: boolean;
 }
 
 interface TeamMember {

@@ -6,14 +6,26 @@ const {
   title = await Astro.slots.render('title'),
   subtitle = await Astro.slots.render('subtitle'),
   tagline,
+  isSubContent = false,
   classes = {},
 } = Astro.props;
 
 const {
-  container: containerClass = 'max-w-3xl',
-  title: titleClass = 'text-3xl md:text-4xl ',
-  subtitle: subtitleClass = 'text-xl',
-} = classes;
+  container: containerClass,
+  title: titleClass,
+  subtitle: subtitleClass
+} = {
+  container: isSubContent
+    ? 'text-left rtl:md:text-right'
+    : 'max-w-xl sm:mx-auto lg:max-w-2xl',
+  title: isSubContent
+    ? 'text-3xl lg:text-4xl'
+    : 'text-4xl md:text-5xl font-bold tracking-tighter mb-4 font-heading',
+  subtitle: isSubContent
+    ? 'text-3xl lg:text-4xl'
+    : 'max-w-3xl mx-auto sm:text-center text-xl text-muted dark:text-slate-400',
+  ... classes
+};
 ---
 
 {

@@ -1,10 +1,5 @@
 ---
-import WidgetWrapper from '~/components/ui/WidgetWrapper.astro';
-import SubContentHeadline from '~/components/ui/SubContentHeadline.astro';
 import type { Marquee as Props } from '~/types';
-
-// import Avatarimg from 'src/assets/images/avatar.jpg';
-// import img from '~/components/common/img.astro';
 import type { ImageType } from '~/components/common/Image.astro';
 
 export interface ScrollItem {
@@ -29,7 +24,7 @@ const {
       ))}
       {items.map((item) => (
         <>
-          <img {...item.image} class="flex-none hover:scale-125" />
+          <img {...item.image} class="flex-none hover:scale-125"/>
           <div class="w-20" />
         </>
       ))}
