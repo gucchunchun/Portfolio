@@ -1,0 +1,43 @@
+---
+import type { Card as Props } from '~/types';
+import Button from './Button.astro';
+import Image from '~/components/common/Image.astro';
+
+const {
+  title,
+  description,
+  image,
+  callToActions = [],
+} = Astro.props;
+---
+
+<div class="group relative w-[280px] h-[360px] rounded-lg overflow-hidden bg-white shadow-2xl transition-transform duration-500 ease-out hover:translate-y-5">
+  <!-- Background Image -->
+  {image && (
+    <Image class="absolute inset-0 object-cover w-full h-full rounded-lg" {...image} />
+  )}
+
+  <!-- Dark Overlay -->
+  <div class="absolute inset-0 bg-black bg-opacity-50 opacity-0 transition-opacity duration-500 group-hover:opacity-100"></div>
+
+  <!-- Content Section -->
+  <div class="absolute top-0 h-full flex flex-col z-10 p-4 pb-6 pt-[40%] justify-between text-white opacity-0 translate-y-5 transition-all duration-500 group-hover:opacity-100 group-hover:translate-y-0">
+    <div>
+      <h3 class="text-3xl font-bold">{title}</h3>
+      <p class="mt-2">{description}</p>      
+    </div>
+
+    <!-- Call to Action Buttons -->
+    <div class="flex items-center gap-2">
+      {callToActions.map((action) => (
+        <div class="inline-block">
+          {typeof action === 'string' ? (
+            <span set:html={action}></span>
+          ) : (
+            <Button variant="primary" {...action} class="hover:text-black"/>
+          )}
+        </div>
+      ))}
+    </div>
+  </div>
+</div>

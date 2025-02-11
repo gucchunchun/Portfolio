@@ -211,6 +211,20 @@ export interface Form {
   description?: string;
 }
 
+export interface Marquee {
+  items?: Array<ScrollItem>;
+  maxWidth?: string;
+}
+
+export interface Card {
+  title: string;
+  description?: string;
+  image?: Image;
+  callToActions?: CallToAction[];
+  bg?: string;
+  isDark?: boolean
+}
+
 // WIDGETS
 export interface Hero extends Omit<Headline, 'classes'>, Omit<Widget, 'isDark' | 'classes'> {
   content?: string;
@@ -274,11 +288,6 @@ export interface Steps extends Omit<Headline, 'classes'>, Widget {
 }
 
 export interface Contact extends Omit<Headline, 'classes'>, Form, Widget {}
-
-export interface Marquee {
-  items?: Array<ScrollItem>;
-  maxWidth?: string;
-}
 
 // SUB CONTENT
 export interface SubContent extends Omit<Headline, 'classes'>, Widget {

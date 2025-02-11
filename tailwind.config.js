@@ -22,6 +22,7 @@ export default {
       animation: {
         fade: 'fadeInUp 1s both',
         marquee: 'marquee 20s linear infinite',
+        sinkDown: 'sinkDown 1s ease-in-out both',
       },
 
       keyframes: {
@@ -32,6 +33,10 @@ export default {
         marquee: {
           '0%': { transform: 'translateX(0)' },
           '100%': { transform: 'translateX(-50%)' },
+        },
+        sinkDown: {
+          '0%': { transform: 'translateY(0)' },
+          '100%': { transform: 'translateX(20px)' },
         }
       },
     },
