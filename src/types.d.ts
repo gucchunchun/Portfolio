@@ -160,24 +160,26 @@ export interface Testimonial {
   image?: string | unknown;
 }
 
-export interface Input {
-  type: HTMLInputTypeAttribute;
+// FORM
+export interface FormInput {
   name: string;
   label?: string;
+  required?: boolean;
+  errors?: string[];
+}
+
+export interface Input extends FormInput {
+  type: HTMLInputTypeAttribute;
   autocomplete?: string;
   placeholder?: string;
 }
 
-export interface Textarea {
-  label?: string;
-  name?: string;
+export interface Textarea extends FormInput {
   placeholder?: string;
   rows?: number;
 }
 
-export interface Disclaimer {
-  label?: string;
-}
+export interface Disclaimer extends FormInput {}
 
 // COMPONENTS
 export interface CallToAction extends Omit<HTMLAttributes<'a'>, 'slot'> {

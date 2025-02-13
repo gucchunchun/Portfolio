@@ -1,0 +1,40 @@
+---
+import type { Input as Props } from "~/types";
+
+const {
+  type = "text",
+  name,
+  label,
+  required = false,
+  errors,
+  autocomplete,
+  placeholder,
+} = Astro.props;
+---
+<div class="mb-6">
+  {label && (
+    <label for={name} class="block text-sm font-medium">
+      {label}
+    </label>
+  )}
+  <input
+    type={type}
+    name={name}
+    id={name}
+    required={required}
+    autocomplete={autocomplete}
+    placeholder={placeholder}
+    class="py-3 px-4 block w-full text-md rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-slate-900"
+  />
+  {
+    errors && (
+      <div id={`${name}-error`}>
+        {
+          errors.map((error) => (
+            <p>{error}</p>
+          ))
+        }
+      </div>
+    )
+  }
+</div>

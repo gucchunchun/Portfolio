@@ -1,0 +1,38 @@
+---
+import type { Disclaimer as Props } from "~/types";
+
+const  {
+  label,
+  name = "disclaimer",
+  required = false,
+  errors,
+} = Astro.props;
+---
+
+<div class="mt-3 flex items-start">
+  <div class="flex mt-0.5">
+    <input
+      id={name}
+      name={name}
+      required={required}
+      type="checkbox"
+      class="cursor-pointer mt-1 py-3 px-4 block w-full text-md rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-slate-900"
+    />
+  </div>
+  <div class="ml-3">
+    <label for={name} class="cursor-pointer select-none text-sm text-gray-600 dark:text-gray-400">
+      {label}
+    </label>
+  </div>
+  {
+    errors && (
+      <div id={`${name}-error`}>
+        {
+          errors.map((error) => (
+            <p>{error}</p>
+          ))
+        }
+      </div>
+    )
+  }
+</div>

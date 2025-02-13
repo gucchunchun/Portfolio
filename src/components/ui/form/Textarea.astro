@@ -1,0 +1,36 @@
+---
+import type { Textarea as Props } from "~/types";
+
+const {
+  name = "message",
+  label,
+  required = false,
+  errors,
+  placeholder,
+  rows = 4
+} = Astro.props;
+---
+<div>
+  <label for={name} class="block text-sm font-medium">
+    {label}
+  </label>
+  <textarea
+    id={name}
+    name={name}
+    required={required}
+    rows={rows}
+    placeholder={placeholder}
+    class="py-3 px-4 block w-full text-md rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-slate-900"
+  />
+  {
+    errors && (
+      <div id={`${name}-error`}>
+        {
+          errors.map((error) => (
+            <p>{error}</p>
+          ))
+        }
+      </div>
+    )
+  }
+</div>

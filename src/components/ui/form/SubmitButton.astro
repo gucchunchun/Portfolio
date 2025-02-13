@@ -1,0 +1,12 @@
+---
+import Button from '~/components/ui/Button.astro';
+
+const {
+  label = "Submit"
+} = Astro.props;
+---
+<div class="mt-10 grid">
+  <Button variant="primary" type="submit">
+    {label}
+  </Button>
+</div>
