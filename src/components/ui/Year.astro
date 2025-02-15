@@ -1,0 +1,17 @@
+---
+import { twMerge } from 'tailwind-merge';
+import type { Year as Props } from "~/types";
+const { 
+  from, 
+  to,
+  customClass = ""
+} = Astro.props;
+
+const displayYear = () => {
+  if (from !== undefined && to !== undefined) return `${from} - ${to}`;
+  if (to !== undefined) return `- ${to}`;
+  if (from !== undefined) return `${from} -`;
+  return '';
+};
+---
+<p class={twMerge('', customClass)} set:html={displayYear()} />

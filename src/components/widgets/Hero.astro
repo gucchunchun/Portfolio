@@ -1,13 +1,13 @@
 ---
 import Image from '~/components/common/Image.astro';
 import Button from '~/components/ui/Button.astro';
-
 import type { Hero as Props } from '~/types';
-
 import { getPermalink } from '~/utils/permalinks';
 
-const TITLE = "Hello, I'm Yuna";
-const SUB_TITLE = "I am a web system engineer with one year of experience, focusing on building and optimizing web applications. I'm currently exploring ways to improve my skills and expand my knowledge in various areas of web development."
+const {
+  title = "",
+  subtitle = ""
+} = Astro.props;
 ---
 
 <section class="relative md:-mt-[76px] not-prose" id="hero">
@@ -17,12 +17,12 @@ const SUB_TITLE = "I am a web system engineer with one year of experience, focus
       <div class="text-center pb-10 md:pb-16 max-w-5xl mx-auto">
         <h1
           class="text-5xl md:text-6xl font-bold leading-tighter tracking-tighter mb-4 font-heading dark:text-gray-200 intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade"
-          set:html={TITLE}
+          set:html={title}
         />
         <div class="max-w-3xl mx-auto">
           <p
             class="text-xl text-muted mb-6 dark:text-slate-300 intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade"
-            set:html={SUB_TITLE}
+            set:html={subtitle}
           />
           <div class="max-w-xs sm:max-w-md m-auto flex flex-nowrap flex-col sm:flex-row sm:justify-center gap-4 intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade">
             <div class="flex w-full sm:w-auto">

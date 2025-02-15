@@ -1,0 +1,32 @@
+{
+  "about": {
+    "title": "私について",
+    "tagline": "ぐっちゅんちゅんとは？",
+    "content": {
+      "intro": "こんにちは、私はユナです。日本のWeb開発者です。",
+      "paragraphs": [
+        "私はバックエンドとフロントエンドの両方の経験を持つWebシステムエンジニアです。",
+        "PHP、TypeScript、JavaScriptなどの技術を使用して、スケーラブルで効率的なWebアプリケーションを開発しています。",
+        "現在、React Nativeを学びながら、モバイルアプリ開発のスキルを拡張しています。"
+      ]
+    }
+  },
+  "work": {
+    "title": "職務経験",
+    "content": {
+      "intro": "こんにちは、私はユナです。日本のWeb開発者です。",
+      "experiences": [
+        {
+          "title": "ソフトウェアエンジニア",
+          "description": "NestJSを使用したバックエンドサービスの開発。",
+          "icon": "tabler:briefcase"
+        },
+        {
+          "title": "フロントエンド開発者",
+          "description": "ReactとNext.jsを使用したUIコンポーネントの構築。",
+          "icon": "tabler:code"
+        }
+      ]
+    }
+  }
+}

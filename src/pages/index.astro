@@ -3,23 +3,23 @@ import Layout from '~/layouts/PageLayout.astro';
 
 import Hero from '~/components/widgets/Hero.astro';
 import Content from '~/components/widgets/Content.astro';
-import CallToAction from '~/components/widgets/CallToAction.astro';
-import Testimonials from '~/components/widgets/Testimonials.astro';
 import Steps from '~/components/widgets/Steps.astro';
-import BlogLatestPosts from '~/components/widgets/BlogLatestPosts.astro';
 import Marquee2 from '~/components/widgets/Marquee2.astro';
 import ContentLayout from '~/layouts/ContentLayout.astro';
 
-// import Carousel from '~/components/widgets/Carousel.astro';
 import Card from '~/components/ui/Card.astro';
 
 import AvatarImage from 'src/assets/images/avatar.jpg';
 import PCImage from 'src/assets/images/pc.jpg';
 
+import { setDefaultNamespace } from "i18next";
+import { translate } from "~/utils/i18n";
+
+setDefaultNamespace("index");
+
 const metadata = {
   title: 'Personal Homepage Demo',
 };
-
 ---
 
 <Layout metadata={metadata}>
@@ -27,13 +27,16 @@ const metadata = {
   <Fragment slot="header"></Fragment>
 
   <!-- Hero -->
-  <Hero />
+  <Hero 
+    title={translate("hero.title")}
+    subtitle={translate("hero.subtitle")}
+  />
 
   <!-- About me -->
   <Content
     id="about"
-    title="About me"
-    tagline="Who is Gucchunchun?"
+    title={translate("about.title")}
+    tagline={translate("about.tagline")}
     columns={3}
     image={{
       src: AvatarImage,
@@ -43,10 +46,13 @@ const metadata = {
     isReversed
   >
     <Fragment slot="content">
-      <p>Hi, I am Yuna, a Japanese Web Developper</p>
+      <p>{translate("about.content.intro")}</p>
       <br />
-      <p>I am a web system engineer with a solid foundation in both backend and frontend web development. </p>
-      <p>I have experience working with technologies like PHP, TypeScript, JavaScript to build scalable and efficient web applications. Currently, I am expanding my skill set by learning React Native to dive into mobile app development. I enjoy taking on new challenges and continuously improving my abilities to create seamless user experiences across platforms.</p>
+      {
+        translate("about.content.paragraphs").map((text) => (
+          <p>{text}</p>
+        ))
+      }
     </Fragment>
   </Content>
 
@@ -54,15 +60,16 @@ const metadata = {
 
   <Steps
     id="resume"
-    title="Work experience"
-    items={[
-      {
-        title:
-          'Junior Web Developer <br /> <span class="font-normal">Buzzestry Co. , Tokyo</span> <br /> <span class="text-sm font-normal">2024 - </span>',
-        description: `Working as an SES engineer <br /> Collaborated with cross-functional teams to implement backend and frontend solutions for seamless user experiences. In Addition to my technical role, I assist in translating and facilitating meetings as a bridge software engineer, supporting the company's expansion efforts abroad. `,
-        icon: 'tabler:briefcase',
-      },
-    ]}
+    title={translate("work.title")}
+    items={
+      translate("work.content.experiences").map((experience) => ({
+        title: experience.title,
+        place: experience.place,
+        year: experience.year,
+        description: experience.description,
+        icon: "tabler:briefcase"
+      }))
+    }
     classes={{ container: 'max-w-3xl' }}
   />
 
@@ -70,17 +77,15 @@ const metadata = {
 
   <Steps
     id="resume"
-    title="Education"
-    items={[
-      {
-        title: `Self-Taught Web Development <br /> <span class="font-normal">Acquired comprehensive knowledge in web development through online courses, tutorials, and hands-on projects.</span> <br /> <span class="text-sm font-normal">2023 - </span>`,
-        icon: 'tabler:school',
-      },
-      {
-        title: `Bachelor of English Literature <br /> <span class="font-normal">Waseda University</span> <br /> <span class="text-sm font-normal">2019 - 2023</span>`,
-        icon: 'tabler:school',
-      }
-    ]}
+    title={translate("education.title")}
+    items={
+      translate("education.content.experiences").map((experience) => ({
+        title: experience.title,
+        place: experience.place,
+        year: experience.year,
+        icon: "tabler:briefcase"
+      }))
+    }
     classes={{ container: 'max-w-3xl' }}
   />
 
@@ -196,13 +201,13 @@ const metadata = {
   <!-- Projects -->
   <ContentLayout
     id="projects"
-    title="Projects"
-    tagline="See my Creation!"
+    title={translate("project.title")}
+    tagline={translate("project.tagline")}
   >
     <div class="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 place-items-center">
       <Card 
-        title="Card1"
-        description="Coming Soon...."
+        title="Coming Soon...."
+        description=""
         image={{
           src: PCImage,
           alt: "PC"
@@ -221,8 +226,8 @@ const metadata = {
         ]}
       />
       <Card 
-        title="Card2"
-        description="Coming Soon...."
+        title="Coming Soon...."
+        description=""
         image={{
           src: PCImage,
           alt: "PC"
@@ -241,8 +246,8 @@ const metadata = {
         ]}
       />
       <Card 
-        title="Card3"
-        description="Coming Soon...."
+        title="Coming Soon...."
+        description=""
         image={{
           src: PCImage,
           alt: "PC"

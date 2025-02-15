@@ -19,6 +19,8 @@ import netlify from '@astrojs/netlify';
 
 import react from '@astrojs/react';
 
+import astroI18next from "astro-i18next";
+
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const hasExternalScripts = false;
@@ -62,7 +64,7 @@ export default defineConfig({
     Logger: 1,
   }), astrowind({
     config: './src/config.yaml',
-  }), react()],
+  }), react(), astroI18next()],
 
   image: {
     domains: ['cdn.pixabay.com'],

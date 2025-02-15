@@ -132,7 +132,7 @@ export interface Stat {
 }
 
 export interface Item {
-  title?: string;
+  title?: string
   description?: string;
   icon?: string;
   classes?: Record<string, string>;
@@ -228,11 +228,7 @@ export interface Card {
 }
 
 // WIDGETS
-export interface Hero extends Omit<Headline, 'classes'>, Omit<Widget, 'isDark' | 'classes'> {
-  content?: string;
-  actions?: string | CallToAction[];
-  image?: string | unknown | Image;
-}
+
 
 export interface Team extends Omit<Headline, 'classes'>, Widget {
   team?: Array<TeamMember>;
@@ -277,17 +273,22 @@ export interface Faqs extends Omit<Headline, 'classes'>, Widget {
   columns?: number;
 }
 
-export interface Steps extends Omit<Headline, 'classes'>, Widget {
-  items: Array<{
-    title: string;
-    description?: string;
-    icon?: string;
-    classes?: Record<string, string>;
-  }>;
-  callToAction?: string | CallToAction;
-  image?: string | Image;
-  isReversed?: boolean;
+// UI
+interface Year {
+  from?: number;
+  to?: number;
+  customClass?: string;
 }
+export interface StepItem extends Item{
+  place?: string;
+  year?: Year;
+}
+export interface TimeLine {
+  items?: Array<StepItem>;
+  defaultIcon?: string;
+  classes?: Record<string, string>;
+}
+
 
 export interface Contact extends Omit<Headline, 'classes'>, Form, Widget {}
 
@@ -309,5 +310,17 @@ export interface Content extends SubContent {
   columns?: number;
   isAfterContent?: boolean;
   callToAction?: CallToAction;
+}
+
+// WIDGET
+export interface Hero extends Omit<Headline, 'classes'>, Omit<Widget, 'isDark' | 'classes'> {
+  image?: ImageProps;
+}
+
+export interface Steps extends Omit<Headline, 'classes'>, Widget, Omit<TimeLine, 'classes'> {
+  items: Array<StepItem>;
+  callToAction?: string | CallToAction;
+  image?: ImageProps;
+  isReversed?: boolean;
 }
 
