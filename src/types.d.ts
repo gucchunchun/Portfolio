@@ -50,20 +50,6 @@ export interface Taxonomy {
   title: string;
 }
 
-export interface MetaData {
-  title?: string;
-  ignoreTitleTemplate?: boolean;
-
-  canonical?: string;
-
-  robots?: MetaDataRobots;
-
-  description?: string;
-
-  openGraph?: MetaDataOpenGraph;
-  twitter?: MetaDataTwitter;
-}
-
 export interface MetaDataRobots {
   index?: boolean;
   follow?: boolean;
@@ -131,14 +117,7 @@ export interface Stat {
   icon?: string;
 }
 
-export interface Item {
-  title?: string
-  description?: string;
-  icon?: string;
-  classes?: Record<string, string>;
-  callToAction?: CallToAction;
-  image?: Image;
-}
+
 
 export interface Price {
   title?: string;
@@ -160,6 +139,9 @@ export interface Testimonial {
   image?: string | unknown;
 }
 
+
+
+
 // FORM
 export interface FormInput {
   name: string;
@@ -179,7 +161,7 @@ export interface Textarea extends FormInput {
   rows?: number;
 }
 
-export interface Disclaimer extends FormInput {}
+export interface Disclaimer extends FormInput {};
 
 // COMPONENTS
 export interface CallToAction extends Omit<HTMLAttributes<'a'>, 'slot'> {
@@ -228,8 +210,6 @@ export interface Card {
 }
 
 // WIDGETS
-
-
 export interface Team extends Omit<Headline, 'classes'>, Widget {
   team?: Array<TeamMember>;
 }
@@ -273,6 +253,35 @@ export interface Faqs extends Omit<Headline, 'classes'>, Widget {
   columns?: number;
 }
 
+export interface MetaData {
+  title?: string;
+  ignoreTitleTemplate?: boolean;
+
+  canonical?: string;
+
+  robots?: MetaDataRobots;
+
+  description?: string;
+
+  openGraph?: MetaDataOpenGraph;
+  twitter?: MetaDataTwitter;
+}
+
+// LAYOUT
+export interface Layout {
+  metadata?: MetaData;
+  lang?: string;
+}
+
+export interface Item {
+  title?: string
+  description?: string[];
+  icon?: string;
+  classes?: Record<string, string>;
+  callToAction?: CallToAction;
+  image?: Image;
+}
+
 // UI
 interface Year {
   from?: number;
@@ -290,7 +299,14 @@ export interface TimeLine {
 }
 
 
-export interface Contact extends Omit<Headline, 'classes'>, Form, Widget {}
+export interface Contact extends Omit<Headline, 'classes'>, Form, Widget {
+  label:{
+    name: string,
+    email: string,
+    message: string,
+    disclaimer: string
+  }
+}
 
 // SUB CONTENT
 export interface SubContent extends Omit<Headline, 'classes'>, Widget {
@@ -315,6 +331,7 @@ export interface Content extends SubContent {
 // WIDGET
 export interface Hero extends Omit<Headline, 'classes'>, Omit<Widget, 'isDark' | 'classes'> {
   image?: ImageProps;
+  href: string;
 }
 
 export interface Steps extends Omit<Headline, 'classes'>, Widget, Omit<TimeLine, 'classes'> {
@@ -322,5 +339,9 @@ export interface Steps extends Omit<Headline, 'classes'>, Widget, Omit<TimeLine,
   callToAction?: string | CallToAction;
   image?: ImageProps;
   isReversed?: boolean;
+}
+
+export interface Header {
+  lang?: string;
 }
 

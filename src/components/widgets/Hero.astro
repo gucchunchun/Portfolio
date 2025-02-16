@@ -1,12 +1,12 @@
 ---
-import Image from '~/components/common/Image.astro';
 import Button from '~/components/ui/Button.astro';
 import type { Hero as Props } from '~/types';
 import { getPermalink } from '~/utils/permalinks';
 
 const {
   title = "",
-  subtitle = ""
+  subtitle = "",
+  href = ""
 } = Astro.props;
 ---
 
@@ -19,17 +19,16 @@ const {
           class="text-5xl md:text-6xl font-bold leading-tighter tracking-tighter mb-4 font-heading dark:text-gray-200 intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade"
           set:html={title}
         />
-        <div class="max-w-3xl mx-auto">
-          <p
-            class="text-xl text-muted mb-6 dark:text-slate-300 intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade"
-            set:html={subtitle}
-          />
-          <div class="max-w-xs sm:max-w-md m-auto flex flex-nowrap flex-col sm:flex-row sm:justify-center gap-4 intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade">
-            <div class="flex w-full sm:w-auto">
-              <Button variant="primary", text="Hire me", href={getPermalink('/contact#form')} class="w-full sm:mb-0" />
-            </div>
-          </div>
-        </div>
+        <p
+          class="text-xl text-muted mb-6 dark:text-slate-300 intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade"
+          set:html={subtitle}
+        />
+        <Button
+          variant="primary"
+          text="Hire me"
+          href={getPermalink(href)}
+          class="w-full sm:mb-0"
+        />
       </div>
     </div>
   </div>

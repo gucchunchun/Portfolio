@@ -13,6 +13,13 @@ const {
   subtitle = await Astro.slots.render('subtitle'),
   tagline = await Astro.slots.render('tagline'),
 
+  label = {
+    name: "",
+    email: "",
+    message: "",
+    disclaimer: "",
+  },
+
   id,
   isDark = false,
   classes = {},
@@ -20,7 +27,6 @@ const {
 } = Astro.props;
 
 const result = Astro.getActionResult(actions.sendEmail);
-console.log("Action Result:", result);
 const inputErrors = isInputError(result?.error) ? result.error.fields : {}
 
 ---
@@ -33,27 +39,27 @@ const inputErrors = isInputError(result?.error) ? result.error.fields : {}
       <Input 
         type="text"
         name="name"
-        label="Name"
+        label={label.name}
         required
         errors={inputErrors.name}
       />
       <Input 
         type="email"
         name="email"
-        label="Email"
+        label={label.email}
         required
         errors={inputErrors.email}
       />
       <Textarea 
         name="message"
-        label="Message"
+        label={label.message}
         errors={inputErrors.message}
       />
       <Disclaimer 
         name="disclaimer"
         required
         errors={inputErrors.disclaimer}
-        label="By submitting this contact form, you acknowledge and agree to the collection of your personal information."
+        label={label.disclaimer}
       />
       <SubmitButton
         label="Send"

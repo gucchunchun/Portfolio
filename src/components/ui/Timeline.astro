@@ -48,12 +48,17 @@ const {
             {title && <p class={twMerge('text-xl font-bold', titleClass, itemClasses?.title)} set:html={title} />}
             {place && <p class={twMerge('text-xl', titleClass, itemClasses?.title)} set:html={place} />}
             {year && <Year {...year} customClass='text-sm'/>}
-            {description && (
-              <p
-                class={twMerge('text-muted mt-2', descriptionClass, itemClasses?.description)}
-                set:html={description}
-              />
-            )}
+            {
+              description && (
+                description.map(line => 
+                  <p
+                    class={twMerge('text-muted mt-2', descriptionClass, itemClasses?.description)}
+                  >
+                    {line}
+                  </p>
+                )
+              )
+            }
           </div>
         </div>
       ))}

@@ -1,0 +1,11 @@
+---
+import { languages, defaultLang } from "~/i18n/ui";
+
+const currentLang = Astro.url.pathname.split("/")[1] || defaultLang;
+---
+
+<select id="language-select" class="bg-transparent dark:text-white">
+  {Object.entries(languages).map(([code, name]) => (
+    <option value={code} selected={code === currentLang}>{name}</option>
+  ))}
+</select>

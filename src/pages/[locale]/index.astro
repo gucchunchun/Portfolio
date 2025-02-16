@@ -9,34 +9,42 @@ import ContentLayout from '~/layouts/ContentLayout.astro';
 
 import Card from '~/components/ui/Card.astro';
 
-import AvatarImage from 'src/assets/images/avatar.jpg';
-import PCImage from 'src/assets/images/pc.jpg';
+import AvatarImage from '~/assets/images/avatar.jpg';
+import PCImage from '~/assets/images/pc.jpg';
 
-import { setDefaultNamespace } from "i18next";
-import { translate } from "~/utils/i18n";
+import { getLangFromUrl, useTranslations } from '~/i18n/utils';
 
-setDefaultNamespace("index");
+const lang = getLangFromUrl(Astro.url);
+const translate = useTranslations(lang);
+
+export async function getStaticPaths() {
+  return [
+    { params: { locale: 'en' } },
+    { params: { locale: 'ja' } },
+  ];
+}
 
 const metadata = {
   title: 'Personal Homepage Demo',
 };
 ---
 
-<Layout metadata={metadata}>
+<Layout metadata={metadata} lang={lang}>
   <Fragment slot="announcement"></Fragment>
   <Fragment slot="header"></Fragment>
 
   <!-- Hero -->
   <Hero 
-    title={translate("hero.title")}
-    subtitle={translate("hero.subtitle")}
+    title={translate("index.hero.title")}
+    subtitle={translate("index.hero.subtitle")}
+    href={`${lang}/contact`}
   />
 
   <!-- About me -->
   <Content
     id="about"
-    title={translate("about.title")}
-    tagline={translate("about.tagline")}
+    title={translate("index.about.title")}
+    tagline={translate("index.about.tagline")}
     columns={3}
     image={{
       src: AvatarImage,
@@ -46,10 +54,10 @@ const metadata = {
     isReversed
   >
     <Fragment slot="content">
-      <p>{translate("about.content.intro")}</p>
+      <p>{translate("index.about.content.intro")}</p>
       <br />
       {
-        translate("about.content.paragraphs").map((text) => (
+        translate("index.about.content.paragraphs").map((text) => (
           <p>{text}</p>
         ))
       }
@@ -60,13 +68,13 @@ const metadata = {
 
   <Steps
     id="resume"
-    title={translate("work.title")}
+    title={translate("index.work.title")}
     items={
-      translate("work.content.experiences").map((experience) => ({
+      translate("index.work.content.experiences").map((experience) => ({
         title: experience.title,
         place: experience.place,
         year: experience.year,
-        description: experience.description,
+        description: [...experience.description],
         icon: "tabler:briefcase"
       }))
     }
@@ -77,11 +85,11 @@ const metadata = {
 
   <Steps
     id="resume"
-    title={translate("education.title")}
+    title={translate("index.education.title")}
     items={
-      translate("education.content.experiences").map((experience) => ({
+      translate("index.education.content.experiences").map((experience) => ({
         title: experience.title,
-        place: experience.place,
+        description: [...experience.description],
         year: experience.year,
         icon: "tabler:briefcase"
       }))
@@ -201,8 +209,8 @@ const metadata = {
   <!-- Projects -->
   <ContentLayout
     id="projects"
-    title={translate("project.title")}
-    tagline={translate("project.tagline")}
+    title={translate("index.project.title")}
+    tagline={translate("index.project.tagline")}
   >
     <div class="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 place-items-center">
       <Card 
@@ -266,7 +274,7 @@ const metadata = {
         ]}
       />
     </div>
-  </SubContentLayout>
+  </ContentLayout>
 
   <!-- CallToAction Widget *********** -->
 

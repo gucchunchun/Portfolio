@@ -1,0 +1,41 @@
+---
+export const prerender = false;
+import Layout from '~/layouts/PageLayout.astro';
+import HeroText from '~/components/widgets/HeroText.astro';
+import ContactUs from '~/components/widgets/Contact.astro';
+
+import { getLangFromUrl, useTranslations } from '~/i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const translate = useTranslations(lang);
+
+export async function getStaticPaths() {
+  return [
+    { params: { locale: 'en' } },
+    { params: { locale: 'ja' } },
+  ];
+}
+
+const metadata = {
+  title: 'Contact',
+};
+---
+
+<Layout metadata={metadata} lang={lang}>
+  <Fragment slot="announcement"></Fragment>
+  <Fragment slot="header"></Fragment>
+
+  <HeroText title={translate("contact.title")} />
+
+  <ContactUs
+    id="form"
+    label={{
+      name: translate("contact.form.label.name"),
+      email: translate("contact.form.label.email"),
+      message: translate("contact.form.label.message"),
+      disclaimer: translate("contact.form.label.disclaimer"),
+    }}
+  />
+
+
+</Layout>

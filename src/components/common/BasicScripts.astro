@@ -40,9 +40,28 @@ import { UI } from 'astrowind:config';
     }
   }
 
+  function handleLanguageChange(event) {
+  const selectedLang = event.target.value;
+    
+    // Extract current path without leading/trailing slashes
+    const currentPath = window.location.pathname.split("/").slice(2).join("/") || ""; 
+
+    // Ensure correct URL without duplicate slashes
+    window.location.href =  `/${selectedLang}${currentPath ? `/${currentPath}` : ""}`;
+  }
+
   const onLoad = function () {
     let lastKnownScrollPosition = window.scrollY;
     let ticking = true;
+
+      // ✅ Attach language change event listener
+    const languageSelect = document.getElementById("language-select");
+    if (languageSelect) {
+      languageSelect.addEventListener("change", (e) => {
+        console.log("Language changed"); // Debugging log
+        handleLanguageChange(e);
+      });
+    }
 
     attachEvent('#header nav', 'click', function () {
       document.querySelector('[data-aw-toggle-menu]')?.classList.remove('expanded');

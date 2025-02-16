@@ -2,9 +2,14 @@
 import Logo from '~/components/Logo.astro';
 import ToggleTheme from '~/components/common/ToggleTheme.astro';
 import ToggleMenu from '~/components/common/ToggleMenu.astro';
+import { getPermalink } from '~/utils/permalinks';
+import { defaultLang } from '~/i18n/ui';
+import type { Header as Props } from '~/types';
+import LanguageSwitcher from '../ui/LanguageSwitcher.astro';
 
-import { getHomePermalink } from '~/utils/permalinks';
-import type { CallToAction } from '~/types';
+const {
+  lang = defaultLang
+} = Astro.props;
 
 interface Link {
   text?: string;
@@ -17,25 +22,13 @@ interface MenuLink extends Link {
   links?: Array<MenuLink>;
 }
 
-export interface Props {
-  id?: string;
-  links?: Array<MenuLink>;
-  actions?: Array<CallToAction>;
-  isSticky?: boolean;
-  isDark?: boolean;
-  isFullWidth?: boolean;
-  showToggleTheme?: boolean;
-  showRssFeed?: boolean;
-  position?: string;
-}
-
 const links: Array<MenuLink> = [
-  { text: 'Home', href: '/#' },
-  { text: 'About', href: '/#about' },
-  { text: 'Resume', href: '/#resume' },
-  { text: 'Projects', href: '/#projects' },
+  {  text: 'Home', href: getPermalink(`${lang}#`) },
+  { text: 'About', href: getPermalink(`${lang}#about`)},
+  { text: 'Resume', href: getPermalink(`${lang}#resume`)},
+  { text: 'Projects', href: getPermalink(`${lang}#projects`) },
   // { text: 'Blog', href: '#blog' },
-  { text: 'Contact', href: '/contact' },
+  { text: 'Contact', href: getPermalink(`${lang}/contact`)},
   { text: 'Github', href: 'https://github.com/gucchunchun' },
 ]
 ---
@@ -47,7 +40,7 @@ const links: Array<MenuLink> = [
   <div class="flex justify-between text-default py-3 px-3 md:px-6 mx-auto w-full" >
     <!-- Logo -->
     <div class="flex justify-between" >
-      <a class="flex items-center" href={getHomePermalink()}>
+      <a class="flex items-center" href={getPermalink(`/${lang}`)}>
         <Logo />
       </a>
     </div>
@@ -64,7 +57,7 @@ const links: Array<MenuLink> = [
         class="flex flex-col w-full h-full pt-20 pb-20 text-xl font-medium justify-between md:flex-row md:self-center md:p-0 md:text-[0.9375rem] tracking-[0.01rem] md:justify-center md:gap-6"
       >
         {
-          links.map(({ text, href, links }) => (
+          links.map(({ text, href }) => (
             <li class="flex justify-center items-center">
                 <a
                   class="w-fit h-fit whitespace-nowrap leading-none hover:border-b-2 dark:hover:text-white "
@@ -78,7 +71,9 @@ const links: Array<MenuLink> = [
       </ul>
     </nav>
     <!-- Toggle Theme Button -->
-    <div class="hidden fixed w-full justify-end left-0 rtl:left-auto rtl:right-0 bottom-0 p-3 md:self-center md:flex items-center md:mb-0 md:w-auto md:static md:p-0">        <ToggleTheme iconClass="w-6 h-6 md:w-5 md:h-5 md:inline-block" />
+    <div class="hidden flex fixed w-full items-center justify-end left-0 gap-2 rtl:left-auto rtl:right-0 bottom-0 p-3 md:flex md:self-center md:mb-0 md:w-auto md:static md:p-0">      
+      <LanguageSwitcher />  
+      <ToggleTheme iconClass="w-6 h-6 md:w-5 md:h-5 md:inline-block" />
     </div>
   </div>
 </header>
