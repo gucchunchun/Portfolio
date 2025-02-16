@@ -54,14 +54,9 @@ import { UI } from 'astrowind:config';
     let lastKnownScrollPosition = window.scrollY;
     let ticking = true;
 
-      // ✅ Attach language change event listener
-    const languageSelect = document.getElementById("language-select");
-    if (languageSelect) {
-      languageSelect.addEventListener("change", (e) => {
-        console.log("Language changed"); // Debugging log
-        handleLanguageChange(e);
-      });
-    }
+    attachEvent('#language-select', 'change', (e) => {
+      handleLanguageChange(e);
+    })
 
     attachEvent('#header nav', 'click', function () {
       document.querySelector('[data-aw-toggle-menu]')?.classList.remove('expanded');
