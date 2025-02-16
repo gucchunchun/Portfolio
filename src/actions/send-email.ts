@@ -9,13 +9,13 @@ const sendEmail = defineAction({
   input: z.object({
     name: z.string(),
     email: z.string().email(),
-    message: z.string().max(1000).nullable(),
+    message: z.string().max(1000),
     disclaimer: z.boolean()
   }),
-  handler: async ({ name }) => {
+  handler: async ({ name, email, message }) => {
     const resend = new Resend(import.meta.env.RESEND_API_KEY);
 
-    const emailContent = ContactEmail({username: name});
+    const emailContent = ContactEmail({ name, email, message });
     const html = await render(emailContent);
     const text = await render(emailContent, { plainText: true });
 
