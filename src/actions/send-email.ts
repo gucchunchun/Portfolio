@@ -9,17 +9,15 @@ const sendEmail = defineAction({
   input: z.object({
     name: z.string(),
     email: z.string().email(),
-    message: z.string().max(1000),
+    message: z.string().max(1000).nullable(),
     disclaimer: z.boolean()
   }),
-  handler: async ({ name, email }) => {
+  handler: async ({ name }) => {
     const resend = new Resend(import.meta.env.RESEND_API_KEY);
-    console.log("Resend API Key:", import.meta.env.RESEND_API_KEY);
 
     const emailContent = ContactEmail({username: name});
     const html = await render(emailContent);
     const text = await render(emailContent, { plainText: true });
-    console.log("Email", email)
 
     const { data, error } = await resend.emails.send({
       from: "onboarding@resend.dev",

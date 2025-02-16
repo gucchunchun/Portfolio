@@ -1,6 +1,6 @@
 ---
 import { actions, isInputError } from "astro:actions";
-import Headline from '~/components/ui/Headline.astro';
+import { navigate } from 'astro:transitions/client';
 import WidgetWrapper from '~/components/ui/WidgetWrapper.astro';
 import Input from "../ui/form/Input.astro";
 import Textarea from "../ui/form/Textarea.astro";
@@ -9,10 +9,6 @@ import SubmitButton from "../ui/form/SubmitButton.astro";
 import type { Contact as Props } from '~/types';
 
 const {
-  title = await Astro.slots.render('title'),
-  subtitle = await Astro.slots.render('subtitle'),
-  tagline = await Astro.slots.render('tagline'),
-
   label = {
     name: "",
     email: "",
@@ -26,14 +22,21 @@ const {
   bg = await Astro.slots.render('bg'),
 } = Astro.props;
 
+// Read form result
 const result = Astro.getActionResult(actions.sendEmail);
-const inputErrors = isInputError(result?.error) ? result.error.fields : {}
+const inputErrors = isInputError(result?.error) ? result.error.fields : {};
+console.log("result", result)
 
+if (!result?.error) {
+  window.alert("success");
+  navigate("/")
+}
+
+// Detect success from query param
+const isSuccess = !result?.error
 ---
 
 <WidgetWrapper id={id} isDark={isDark} containerClass={`max-w-7xl mx-auto ${classes?.container ?? ''}`} bg={bg}>
-  <Headline title={title} subtitle={subtitle} tagline={tagline} />
-
   <div class="flex justify-center">
     <form action={actions.sendEmail} method="post" class="max-w-5xl">
       <Input 
@@ -66,6 +69,8 @@ const inputErrors = isInputError(result?.error) ? result.error.fields : {}
       />  
     </form>
   </div>
-
-
 </WidgetWrapper>
+{isSuccess && <script>
+  alert("Email Sent Successfully!");
+  window.history.replaceState({}, document.title, window.location.pathname);
+</script>}

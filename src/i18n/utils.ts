@@ -2,9 +2,9 @@ import { ui, defaultLang } from '~/i18n/ui';
 import type { TranslationKeys } from "~/i18n/types";
 
 export function getLangFromUrl(url: URL) {
-  const [, lang] = url.pathname.split('/');
-  if (lang in ui) return lang as keyof typeof ui;
-  return defaultLang;
+  const [, lang] = url.pathname.split('/'); // Extract the first path segment
+  if (lang in ui) return lang as keyof typeof ui; // Return only '/en' or similar
+  return defaultLang; // Ensure the default language follows the same format
 }
 
 type DeepValue<T, K extends string> = 
