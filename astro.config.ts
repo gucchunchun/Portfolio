@@ -89,6 +89,9 @@ export default defineConfig({
         '~': path.resolve(__dirname, './src'),
       },
     },
+    define: {
+      'process.env.DEBUG': JSON.stringify('true')
+    }
   },
 
   adapter: netlify(),
