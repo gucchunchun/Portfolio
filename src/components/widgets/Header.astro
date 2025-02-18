@@ -5,7 +5,7 @@ import ToggleMenu from '~/components/common/ToggleMenu.astro';
 import { getPermalink } from '~/utils/permalinks';
 import { defaultLang } from '~/i18n/ui';
 import type { Header as Props } from '~/types';
-import LanguageSwitcher from '../ui/LanguageSwitcher.astro';
+import LanguageSwitcher from '~/components/ui/LanguageSwitcher.astro';
 
 const {
   lang = defaultLang
@@ -23,11 +23,11 @@ interface MenuLink extends Link {
 }
 
 const links: Array<MenuLink> = [
-  {  text: 'Home', href: getPermalink(`${lang}#`) },
+  { text: 'Home', href: getPermalink(`${lang}#`) },
   { text: 'About', href: getPermalink(`${lang}#about`)},
   { text: 'Resume', href: getPermalink(`${lang}#resume`)},
   { text: 'Projects', href: getPermalink(`${lang}#projects`) },
-  // { text: 'Blog', href: '#blog' },
+  { text: 'Blog', href: getPermalink(`/blogs`) },
   { text: 'Contact', href: getPermalink(`${lang}/contact`)},
   { text: 'Github', href: 'https://github.com/gucchunchun' },
 ]
