@@ -1,8 +1,8 @@
 ---
 import type { HTMLTag } from 'astro/types';
-import type { Widget } from '~/types';
+import type { Widget } from '~/types/global';
 import { twMerge } from 'tailwind-merge';
-import Background from './Background.astro';
+import { Background } from '~/components/common';
 
 export interface Props extends Widget {
   containerClass?: string;

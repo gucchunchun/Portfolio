@@ -1,11 +1,10 @@
 ---
-import Logo from '~/components/Logo.astro';
-import ToggleTheme from '~/components/common/ToggleTheme.astro';
-import ToggleMenu from '~/components/common/ToggleMenu.astro';
+import { Logo } from '~/components/layouts';
+import { ToggleTheme, ToggleMenu } from '~/components/common';
+import { LanguageSwitcher } from '~/components/features';
 import { getPermalink } from '~/utils/permalinks';
 import { defaultLang } from '~/i18n/ui';
-import type { Header as Props } from '~/types';
-import LanguageSwitcher from '~/components/ui/LanguageSwitcher.astro';
+import type { Header as Props } from '~/types/global';
 
 const {
   lang = defaultLang

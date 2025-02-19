@@ -22,7 +22,7 @@ const sendEmail = defineAction({
     const { data, error } = await resend.emails.send({
       from: "onboarding@resend.dev",
       to: import.meta.env.MY_EMAIL,
-      subject: "Hello",
+      subject: "Contact From User",
       html,
       text
     });

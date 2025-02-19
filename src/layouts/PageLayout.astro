@@ -1,11 +1,13 @@
 ---
-import Layout from '~/layouts/Layout.astro';
-import Header from '~/components/widgets/Header.astro';
-import Footer from '~/components/widgets/Footer.astro';
+import BaseLayout from '~/layouts/BaseLayout.astro';
+import {
+  Header,
+  Footer
+} from '~/components/layouts/index';
 
 import { footerData } from '~/navigation';
 
-import type { Layout as Props } from '~/types';
+import type { Layout as Props } from '~/types/global';
 
 const { 
   metadata,
@@ -13,14 +15,10 @@ const {
 } = Astro.props;
 ---
 
-<Layout metadata={metadata}>
-    <Header 
-      lang={lang}
-    />
+<BaseLayout metadata={metadata}>
+  <Header lang={lang}/>
   <main>
     <slot />
   </main>
-  <slot name="footer">
-    <Footer {...footerData} />
-  </slot>
-</Layout>
+  <Footer {...footerData} />
+</BaseLayout>

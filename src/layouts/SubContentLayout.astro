@@ -1,8 +1,8 @@
 ---
-import WidgetWrapper from '~/components/ui/WidgetWrapper.astro';
-import Headline from '../components/ui/Headline.astro';
+import WidgetWrapper from '~/layouts/WidgetWrapper.astro';
+import { Headline } from '~/components/common';
 import Image from '~/components/common/Image.astro';
-import type { SubContent as Props } from '~/types';
+import type { SubContent as Props } from '~/types/global';
 
 const {
   title = await Astro.slots.render('title'),

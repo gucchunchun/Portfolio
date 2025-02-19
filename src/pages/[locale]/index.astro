@@ -1,13 +1,13 @@
 ---
 import Layout from '~/layouts/PageLayout.astro';
-
-import Hero from '~/components/widgets/Hero.astro';
-import Content from '~/components/widgets/Content.astro';
-import Steps from '~/components/widgets/Steps.astro';
-import Marquee2 from '~/components/widgets/Marquee2.astro';
 import ContentLayout from '~/layouts/ContentLayout.astro';
-
-import Card from '~/components/ui/Card.astro';
+import SubContentLayout from '~/layouts/SubContentLayout.astro';
+import {
+  Hero,
+  Marquee,
+  Timeline
+} from '~/components/features';
+import { Card, Image } from '~/components/common';
 
 import AvatarImage from '~/assets/images/avatar.jpg';
 import PCImage from '~/assets/images/pc.jpg';
@@ -40,170 +40,182 @@ const metadata = {
   />
 
   <!-- About me -->
-  <Content
+  <ContentLayout
     id="about"
     title={translate("index.about.title")}
     tagline={translate("index.about.tagline")}
-    columns={3}
-    image={{
-      src: AvatarImage,
-      alt: 'avatar',
-      loading: 'eager',
-    }}
-    isReversed
   >
-    <Fragment slot="content">
-      <p>{translate("index.about.content.intro")}</p>
-      <br />
-      {
-        translate("index.about.content.paragraphs").map((text) => (
-          <p>{text}</p>
-        ))
-      }
-    </Fragment>
-  </Content>
+    <div class="mx-auto max-w-7xl p-4 md:px-8">
+      <div class={`md:flex md:gap-16`}>
+        <div class="md:basis-1/2 self-center">
+          <p>{translate("index.about.content.intro")}</p>
+          <br />
+          {
+            translate("index.about.content.paragraphs").map((text) => (
+              <p>{text}</p>
+            ))
+          }
+        </div>
+        <div aria-hidden="true" class="mt-10 md:mt-0 md:basis-1/2">
+          <Image
+            class="mx-auto w-ful rounded-full"
+            width={500}
+            height={500}
+            widths={[400, 768]}
+            sizes="(max-width: 768px) 100vw, 432px"
+            layout="responsive"
+            src={AvatarImage}
+            alt="avatar"
+            loading="eager"
+          />
+        </div>
+      </div>
+    </div>
+  </ContentLayout>
 
   <!-- Work Experience -->
-
-  <Steps
+  <SubContentLayout
     id="resume"
     title={translate("index.work.title")}
-    items={
-      translate("index.work.content.experiences").map((experience) => ({
-        title: experience.title,
-        place: experience.place,
-        year: experience.year,
-        description: [...experience.description],
-        icon: "tabler:briefcase"
-      }))
-    }
-    classes={{ container: 'max-w-3xl' }}
-  />
+  >
+    <Timeline
+      items={
+        translate("index.work.content.experiences").map((experience) => ({
+          title: experience.title,
+          place: experience.place,
+          year: experience.year,
+          description: [...experience.description],
+          icon: "tabler:briefcase"
+        }))
+      }
+      classes={{ container: 'max-w-3xl' }}
+    />
+  </SubContentLayout>
 
   <!-- Education -->
-
-  <Steps
+  <SubContentLayout
     id="resume"
-    title={translate("index.education.title")}
-    items={
-      translate("index.education.content.experiences").map((experience) => ({
-        title: experience.title,
-        description: [...experience.description],
-        year: experience.year,
-        icon: "tabler:briefcase"
-      }))
-    }
-    classes={{ container: 'max-w-3xl' }}
-  />
+    title={translate("index.education.title")}  
+  >
+    <Timeline
+      items={
+        translate("index.education.content.experiences").map((experience) => ({
+          title: experience.title,
+          description: [...experience.description],
+          year: experience.year,
+          icon: "tabler:briefcase"
+        }))
+      }
+      classes={{ container: 'max-w-3xl' }}
+    />
+  </SubContentLayout>
 
   <!-- Skills -->
-  <Marquee2
+  <SubContentLayout
     id="skills"
-    title="Skills"
-    items={[
-      {
-        image: {
-          src: 'https://skillicons.dev/icons?i=html',
-          alt: 'html'
+    title="Skills"  
+  >
+    <Marquee
+      items={[
+        {
+          image: {
+            src: 'https://skillicons.dev/icons?i=html',
+            alt: 'html'
+          },
         },
-      },
-      {
-        image: {
-          src: 'https://skillicons.dev/icons?i=css',
-          alt: 'css'
+        {
+          image: {
+            src: 'https://skillicons.dev/icons?i=css',
+            alt: 'css'
+          },
         },
-      },
-      {
-        image: {
-          src: 'https://skillicons.dev/icons?i=js',
-          alt: 'js'
+        {
+          image: {
+            src: 'https://skillicons.dev/icons?i=js',
+            alt: 'js'
+          },
         },
-      },
-      {
-        image: {
-          src: 'https://skillicons.dev/icons?i=ts',
-          alt: 'ts'
+        {
+          image: {
+            src: 'https://skillicons.dev/icons?i=ts',
+            alt: 'ts'
+          },
         },
-      },
-      {
-        image: {
-          src: 'https://skillicons.dev/icons?i=php',
-          alt: 'php'
+        {
+          image: {
+            src: 'https://skillicons.dev/icons?i=php',
+            alt: 'php'
+          },
         },
-      },
-      {
-        image: {
-          src: 'https://skillicons.dev/icons?i=laravel',
-          alt: 'laravel'
+        {
+          image: {
+            src: 'https://skillicons.dev/icons?i=laravel',
+            alt: 'laravel'
+          },
         },
-      },
-      {
-        image: {
-          src: 'https://skillicons.dev/icons?i=nestjs',
-          alt: 'nestjs'
+        {
+          image: {
+            src: 'https://skillicons.dev/icons?i=nestjs',
+            alt: 'nestjs'
+          },
         },
-      },
-      {
-        image: {
-          src: 'https://skillicons.dev/icons?i=nodejs',
-          alt: 'nodejs'
+        {
+          image: {
+            src: 'https://skillicons.dev/icons?i=nodejs',
+            alt: 'nodejs'
+          },
         },
-      },
-      {
-        image: {
-          src: 'https://skillicons.dev/icons?i=react',
-          alt: 'react'
+        {
+          image: {
+            src: 'https://skillicons.dev/icons?i=react',
+            alt: 'react'
+          },
         },
-      },
-      {
-        image: {
-          src: 'https://skillicons.dev/icons?i=nextjs',
-          alt: 'nextjs'
+        {
+          image: {
+            src: 'https://skillicons.dev/icons?i=nextjs',
+            alt: 'nextjs'
+          },
         },
-      },
-      {
-        image: {
-          src: 'https://skillicons.dev/icons?i=astro',
-          alt: 'astro'
+        {
+          image: {
+            src: 'https://skillicons.dev/icons?i=astro',
+            alt: 'astro'
+          },
         },
-      },
-      {
-        image: {
-          src: 'https://skillicons.dev/icons?i=mysql',
-          alt: 'mysql'
+        {
+          image: {
+            src: 'https://skillicons.dev/icons?i=mysql',
+            alt: 'mysql'
+          },
         },
-      },
-      {
-        image: {
-          src: 'https://skillicons.dev/icons?i=postgres',
-          alt: 'postgres'
+        {
+          image: {
+            src: 'https://skillicons.dev/icons?i=postgres',
+            alt: 'postgres'
+          },
         },
-      },
-      {
-        image: {
-          src: 'https://skillicons.dev/icons?i=docker',
-          alt: 'docker'
+        {
+          image: {
+            src: 'https://skillicons.dev/icons?i=docker',
+            alt: 'docker'
+          },
         },
-      },
-      {
-        image: {
-          src: 'https://skillicons.dev/icons?i=git',
-          alt: 'git'
+        {
+          image: {
+            src: 'https://skillicons.dev/icons?i=git',
+            alt: 'git'
+          },
         },
-      },
-      {
-        image: {
-          src: 'https://skillicons.dev/icons?i=github',
-          alt: 'github'
-        },
-      }
-    ]}
-    classes={{
-      headline: {
-
-      }
-    }}
-  />
+        {
+          image: {
+            src: 'https://skillicons.dev/icons?i=github',
+            alt: 'github'
+          },
+        }
+      ]}
+    />
+  </SubContentLayout>
 
   <!-- Projects -->
   <ContentLayout
@@ -275,29 +287,4 @@ const metadata = {
     </div>
   </ContentLayout>
 
-  <!-- CallToAction Widget *********** -->
-
-  <!-- <CallToAction
-    title="Let's create together"
-    subtitle="Ready to transform your vision into captivating designs?"
-    actions={[
-      {
-        variant: 'primary',
-        text: 'Hire me',
-        href: '/',
-      },
-    ]}
-  /> -->
-
-  <!-- BlogLatestPost Widget **************** -->
-
-  <!-- <BlogLatestPosts
-    id="blog"
-    title="Explore my insightful articles on my blog"
-    information={`Dive into a realm of design wisdom and creative inspiration, where you'll find invaluable insights, practical tips, and captivating narratives that elevate and enrich your creative journey.`}
-  >
-    <Fragment slot="bg">
-      <div class="absolute inset-0 bg-blue-50 dark:bg-transparent"></div>
-    </Fragment>
-  </BlogLatestPosts> -->
 </Layout>

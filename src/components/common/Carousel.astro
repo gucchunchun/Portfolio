@@ -1,7 +1,7 @@
 ---
-import WidgetWrapper from '~/components/ui/WidgetWrapper.astro';
-import Headline from '~/components/ui/Headline.astro';
-import type { Features as Props } from '~/types';
+import WidgetWrapper from '~/layouts/WidgetWrapper.astro';
+import { Headline } from '~/components/common';
+import type { Features as Props } from '~/types/global';
 import AvatarImage from 'src/assets/images/avatar.jpg';
 import Image from '~/components/common/Image.astro';
 
@@ -9,7 +9,7 @@ const {
   title = await Astro.slots.render('title'),
   subtitle = await Astro.slots.render('subtitle'),
   tagline = await Astro.slots.render('tagline'),
-  items = [],
+  // items = [],
   
   id,
   isDark = false,

@@ -1,17 +1,17 @@
 ---
 export const prerender = false;
+
 import { actions, isInputError } from "astro:actions";
-import WidgetWrapper from '~/components/ui/WidgetWrapper.astro';
-import Input from "~/components/ui/form/Input.astro";
-import Textarea from "~/components/ui/form/Textarea.astro";
-import Disclaimer from "~/components/ui/form/Disclaimer.astro";
+import PageLayout from '~/layouts/PageLayout.astro';
+import ContentLayout from "~/layouts/ContentLayout.astro";
+import {
+  Input,
+  Textarea,
+  Disclaimer
+} from '~/components/common/form';
 import SubmitButton from "~/components/ui/form/SubmitButton.astro";
-import type { Contact as Props } from '~/types';
-import Layout from '~/layouts/PageLayout.astro';
-import HeroText from '~/components/widgets/HeroText.astro';
-
+import type { Contact as Props } from '~/types/global';
 import { getLangFromUrl, useTranslations } from '~/i18n/utils';
-
 const lang = getLangFromUrl(Astro.url);
 const translate = useTranslations(lang);
 
@@ -19,20 +19,19 @@ const metadata = {
   title: 'Contact',
 };
 
-// Read form result
 const result = Astro.getActionResult(actions.sendEmail);
 const inputErrors = isInputError(result?.error) ? result.error.fields : {};
-console.log("lang", lang)
 
 if (result && !result?.error) {
   return Astro.redirect(`/${lang}`)
 }
 ---
-<Layout metadata={metadata} lang={lang}>
+<PageLayout metadata={metadata} lang={lang}>
   <Fragment slot="header"></Fragment>
 
-  <HeroText title={translate("contact.title")} />
-  <WidgetWrapper containerClass="max-w-7xl mx-auto">
+  <ContentLayout 
+    title={translate("contact.title")}
+  >
     <div class="flex justify-center">
       <form action={actions.sendEmail} method="post" class="w-full max-w-3xl">
         <Input 
@@ -65,5 +64,5 @@ if (result && !result?.error) {
         />  
       </form>
     </div>
-  </WidgetWrapper>
-</Layout>
+  </ContentLayout>
+</PageLayout>
