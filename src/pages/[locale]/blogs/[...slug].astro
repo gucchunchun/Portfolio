@@ -1,6 +1,7 @@
 ---
 import { getCollection, render, type CollectionEntry } from 'astro:content';
 import BlogMarkdownLayout from '~/layouts/BlogMarkdownLayout.astro';
+import { languages } from '~/i18n/ui';
 
 type Props = {
   post: CollectionEntry<"posts">
@@ -8,9 +9,16 @@ type Props = {
 
 export async function getStaticPaths() {
   const posts = await getCollection('posts');
-  return posts.map(post => ({
-    params: { slug: post.slug }, props: { post },
-  }));
+
+  return posts.flatMap((post) => {
+    return Object.keys(languages).map((locale) => ({
+      params: {
+        locale,
+        slug: post.slug,
+      },
+      props: { post },
+    }));
+  });
 }
 
 const { post } = Astro.props;

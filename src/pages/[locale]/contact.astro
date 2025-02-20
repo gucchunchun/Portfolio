@@ -7,9 +7,9 @@ import ContentLayout from "~/layouts/ContentLayout.astro";
 import {
   Input,
   Textarea,
-  Disclaimer
+  Disclaimer,
+  SubmitButton
 } from '~/components/common/form';
-import SubmitButton from "~/components/ui/form/SubmitButton.astro";
 import type { Contact as Props } from '~/types/global';
 import { getLangFromUrl, useTranslations } from '~/i18n/utils';
 const lang = getLangFromUrl(Astro.url);

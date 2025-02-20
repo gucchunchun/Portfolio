@@ -1,0 +1,48 @@
+---
+import { getCollection } from 'astro:content';
+import PageLayout from '~/layouts/PageLayout.astro';
+import ContentLayout from '~/layouts/ContentLayout.astro';
+import { Card, Headline } from '~/components/common';
+import PCImage from '~/assets/images/pc.jpg';
+import { getPermalink } from '~/utils/permalinks';
+import { getLangFromUrl } from '~/i18n/utils';
+import { languages } from '~/i18n/ui';
+
+const allPosts = await getCollection("posts");
+const sortedPosts = allPosts.sort((a, b) =>
+  new Date(b.data.pubDate).valueOf() - new Date(a.data.pubDate).valueOf()
+);
+
+const lang = getLangFromUrl(Astro.url);
+// const translate = useTranslations(lang);
+export async function getStaticPaths() {
+  return Object.keys(languages).map((key) => ({ params: { locale: key } }))
+}
+---
+<PageLayout>
+  <ContentLayout>
+    <Headline 
+      title="Blog Posts"
+    />
+    <ul class="grid mx-auto gap-8 md:gap-y-12 md:grid-cols-3 sm:grid-cols-2">
+        {sortedPosts.map((post) => (
+          <li class="flex items-center justify-center self-center">
+            <a href={getPermalink(`${lang}/blogs/${post.slug}/`)}>
+              <Card 
+                title={post.data.title}
+                description={post.data.pubDate.toDateString()}
+                image={{
+                  src: PCImage,
+                  alt: "sample"
+                }}
+              />
+            </a> 
+          </li>
+        ))}       
+    
+    </ul>    
+  </ContentLayout>
+
+
+
+</PageLayout>

@@ -13,15 +13,12 @@ import AvatarImage from '~/assets/images/avatar.jpg';
 import PCImage from '~/assets/images/pc.jpg';
 
 import { getLangFromUrl, useTranslations } from '~/i18n/utils';
+import { languages } from '~/i18n/ui';
 
 const lang = getLangFromUrl(Astro.url);
 const translate = useTranslations(lang);
-
 export async function getStaticPaths() {
-  return [
-    { params: { locale: 'en' } },
-    { params: { locale: 'ja' } },
-  ];
+  return Object.keys(languages).map((key) => ({ params: { locale: key } }))
 }
 
 const metadata = {
